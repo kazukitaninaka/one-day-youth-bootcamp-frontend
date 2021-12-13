@@ -13,7 +13,6 @@ export type Task = {
 };
 
 const App: React.VFC = () => {
-  // タスクリストを格納する
   const setTasks = useSetRecoilState(tasksState);
   // ページマウント時にモックAPIからデータを取得
   useEffect(() => {

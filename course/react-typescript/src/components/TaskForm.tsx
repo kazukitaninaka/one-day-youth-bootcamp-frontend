@@ -36,7 +36,9 @@ export const TaskForm: React.FC = React.memo(() => {
         value={newTaskLabel}
         onChange={(e) => handleNewTaskLabel(e)}
       />
-      <button onClick={handleAddTask}>Add</button>
+      <button onClick={handleAddTask} disabled={!newTaskLabel}>
+        Add
+      </button>
       <br />
       <button onClick={handleClearTasks}>Clear</button>
     </>
