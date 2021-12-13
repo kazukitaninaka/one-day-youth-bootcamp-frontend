@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { Task } from '..';
 import { tasksState } from '../store';
-import { Button, Input, Spacer } from '@nextui-org/react';
+import { Button, Grid, Input, Spacer } from '@nextui-org/react';
 
 export const TaskForm: React.FC = React.memo(() => {
     const setTasks = useSetRecoilState(tasksState);
@@ -30,19 +30,25 @@ export const TaskForm: React.FC = React.memo(() => {
 
     return (
         <>
-            <Input
-                type="text"
-                placeholder="Enter the text"
-                value={newTaskLabel}
-                onChange={handleNewTaskLabel}
-            />
-            <Button
-                onClick={handleAddTask}
-                disabled={!newTaskLabel}
-                size="small"
-            >
-                Add
-            </Button>
+            <Grid.Container gap={1}>
+                <Grid>
+                    <Input
+                        type="text"
+                        placeholder="Enter the text"
+                        value={newTaskLabel}
+                        onChange={handleNewTaskLabel}
+                    />
+                </Grid>
+                <Grid>
+                    <Button
+                        onClick={handleAddTask}
+                        disabled={!newTaskLabel}
+                        size="small"
+                    >
+                        Add
+                    </Button>
+                </Grid>
+            </Grid.Container>
             <br />
             <Spacer y={1} />
             <Button color="warning" onClick={handleClearTasks} size="small">
