@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { Task } from "..";
+import { tasksState } from "../store";
 
-type Props = {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-};
-
-export const TaskForm: React.FC<Props> = React.memo(({ tasks, setTasks }) => {
+export const TaskForm: React.FC = React.memo(() => {
+  const setTasks = useSetRecoilState(tasksState);
   // 追加前のタスクを格納する
   const [newTaskLabel, setNewTaskLabel] = useState<string>("");
   // フォームの値を保持する
@@ -20,14 +18,14 @@ export const TaskForm: React.FC<Props> = React.memo(({ tasks, setTasks }) => {
       label: newTaskLabel,
       isDone: false,
     } as Task;
-    setTasks([...tasks, newTask]);
+    setTasks((prevTasks) => [...prevTasks, newTask]);
     setNewTaskLabel("");
   };
 
   // 完了したTaskを削除する
   const handleClearTasks = () => {
-    const newTasks = tasks.filter((task) => !task.isDone);
-    setTasks(newTasks);
+    // const newTasks = tasks.filter((task) => !task.isDone);
+    setTasks((prevTasks) => prevTasks.filter((task) => !task.isDone));
   };
 
   return (

@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { TaskList } from "./components/TaskList";
 import { TaskForm } from "./components/TaskForm";
 import { request } from "./server";
-import store from "./store";
+import { useSetRecoilState, RecoilRoot } from "recoil";
+import { tasksState } from "./store";
 
 // TODOタスクの型
 export type Task = {
@@ -13,10 +14,9 @@ export type Task = {
 
 const App: React.VFC = () => {
   // タスクリストを格納する
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const setTasks = useSetRecoilState(tasksState);
   // ページマウント時にモックAPIからデータを取得
   useEffect(() => {
-    console.log(store.getState());
     request.fetchTasks((payload: Task[]) => setTasks(payload));
   }, []);
 
@@ -26,12 +26,17 @@ const App: React.VFC = () => {
       <h1>Tutorial Works</h1>
       <h2>React Todo List</h2>
       {/* 一覧表示 */}
-      <TaskList {...{ tasks, setTasks }} />
+      <TaskList />
 
       {/* タスク追加、削除 */}
-      <TaskForm {...{ tasks, setTasks }} />
+      <TaskForm />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.querySelector("#app"));
+ReactDOM.render(
+  <RecoilRoot>
+    <App />
+  </RecoilRoot>,
+  document.querySelector("#app")
+);

@@ -1,12 +1,10 @@
 import React from "react";
 import { Task } from "..";
+import { useRecoilState } from "recoil";
+import { tasksState } from "../store";
 
-type Props = {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-};
-
-export const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
+export const TaskList: React.FC = () => {
+  const [tasks, setTasks] = useRecoilState(tasksState);
   // Taskの状態を切り替える
   function handleCheckBox(e: React.ChangeEvent<HTMLInputElement>, i: number) {
     const newTasks = tasks.map((task: Task, _i) => {

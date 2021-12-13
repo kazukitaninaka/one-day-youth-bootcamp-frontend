@@ -1,16 +1,7 @@
-import { createStore } from "redux";
+import { atom } from "recoil";
+import { Task } from ".";
 
-function counterReducer(state = { value: 0 }, action) {
-  switch (action.type) {
-    case "counter/incremented":
-      return { value: state.value + 1 };
-    case "counter/decremented":
-      return { value: state.value - 1 };
-    default:
-      return state;
-  }
-}
-
-const store = createStore(counterReducer);
-
-export default store;
+export const tasksState = atom<Task[]>({
+  key: "tasksState",
+  default: [],
+});
