@@ -5,6 +5,7 @@ import { TaskForm } from './components/TaskForm';
 import { request } from './server';
 import { useSetRecoilState, RecoilRoot } from 'recoil';
 import { tasksState } from './store';
+import { CssBaseline } from '@nextui-org/react';
 
 // TODOタスクの型
 export type Task = {
@@ -35,6 +36,7 @@ const App: React.VFC = () => {
 
 ReactDOM.render(
     <RecoilRoot>
+        <CssBaseline />
         <App />
     </RecoilRoot>,
     document.querySelector('#app')
